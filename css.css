@@ -1,336 +1,607 @@
+/* =====================================================================
+   TURFE AMIGO — tema Synthwave / Retro
+   Só CSS: o HTML não precisa mudar.
+   Coloque este arquivo na mesma pasta do podio-synthwave.svg
+   (ou ajuste --cenario abaixo).
+
+   Ideia de contraste:
+   - Site em si  -> noite fria (azul-marinho/roxo escuro) com painéis escuros e bordas ciano
+   - Cabeçalho, pista e pódio -> pôr do sol quente (laranja/rosa/magenta)
+   ===================================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Audiowide&display=swap");
+
 :root {
-            --grama: #2f5d3a;
-            --grama-escura: #1c3a25;
-            --fundo: #eef2ea;
-            --papel: #fbfcf9;
-            --tinta: #1b2a22;
-            --tinta-suave: #5a6b60;
-            --linha: #d3dccf;
-            --seda: #e4b023;
-            /* amarelo das sedas dos jóqueis */
-            --erro: #b3372b;
-            --raio: 10px;
-            font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
-        }
+    /* Noite (base do site) */
+    --noite: #0d0221;
+    --noite-2: #150336;
+    --roxo: #2b0a52;
+    --painel: #1a0638;
 
-        * {
-            box-sizing: border-box;
-        }
+    /* Neons */
+    --magenta: #ff2fd6;
+    --rosa: #ff2a8a;
+    --ciano: #19e6ff;
+    --sol: #ffd84a;
+    --laranja: #ff8a3d;
 
-        body {
-            margin: 0;
-            background: var(--fundo);
-            color: var(--tinta);
-            line-height: 1.45;
-        }
+    /* Texto */
+    --texto: #f3e9ff;
+    --texto-suave: #b9a3da;
+    --erro: #ff6b6b;
 
-        h1,
-        h2,
-        h3 {
-            margin: 0;
-            line-height: 1.15;
-        }
+    /* Cenário SVG (cabeçalho e pódio) */
+    --cenario: url("podio-synthwave.svg");
 
-        /* ---------- Cabeçalho ---------- */
-        .topo {
-            background: var(--grama-escura);
-            color: var(--fundo);
-            padding: 18px 28px;
-            border-bottom: 6px solid var(--seda);
-        }
+    --brilho-ciano: 0 0 0 2px var(--ciano), 0 0 14px rgba(25, 230, 255, 0.55);
+    --brilho-magenta: 0 0 14px rgba(255, 47, 214, 0.65);
+    --sombra-dura: 5px 5px 0 var(--magenta);
+    --raio: 6px;
 
-        .topo h1 {
-            font-size: 1.8rem;
-            letter-spacing: 0.02em;
-        }
+    --fonte-titulo: "Audiowide", "Arial Black", Impact, sans-serif;
+    --fonte-texto: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
 
-        /* ---------- Layout em duas colunas ---------- */
-        .layout {
-            display: grid;
-            grid-template-columns: 380px 1fr;
-            gap: 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 24px;
-            align-items: start;
-        }
+    font-family: var(--fonte-texto);
+}
 
-        /* ---------- Aba esquerda ---------- */
-        .aba-esquerda {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            position: sticky;
-            top: 16px;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        .bloco {
-            background: var(--papel);
-            border: 1px solid var(--linha);
-            border-radius: var(--raio);
-            padding: 18px;
-        }
+[hidden] {
+    display: none !important;
+}
 
-        .bloco h2 {
-            font-size: 1.05rem;
-            margin-bottom: 14px;
-            color: var(--grama-escura);
-        }
+/* ---------- Fundo da página: noite com estrelas e grade tênue ---------- */
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--texto);
+    line-height: 1.45;
+    background:
+        radial-gradient(1.5px 1.5px at 12% 18%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 34% 62%, #fff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 58% 28%, #fff 50%, transparent 51%),
+        radial-gradient(1px 1px at 76% 74%, #fff 50%, transparent 51%),
+        radial-gradient(1.5px 1.5px at 90% 14%, #fff 50%, transparent 51%),
+        linear-gradient(rgba(25, 230, 255, 0.05) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(90deg, rgba(25, 230, 255, 0.05) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(180deg, var(--noite) 0%, var(--noite-2) 60%, var(--roxo) 100%);
+    background-attachment: fixed;
+}
 
-        /* ---------- Campos e botões ---------- */
-        .campo {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            margin-bottom: 12px;
-            font-size: 0.9rem;
-            color: var(--tinta-suave);
-        }
+h1,
+h2,
+h3 {
+    margin: 0;
+    line-height: 1.1;
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+}
 
-        .campos-lado-a-lado {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
+/* ---------- Cabeçalho: cena do SVG (funciona com <h1> solto ou .topo) ---------- */
+.topo,
+body > h1 {
+    position: relative;
+    margin: 0;
+    padding: clamp(36px, 8vw, 72px) 24px clamp(30px, 6vw, 54px);
+    text-align: center;
+    font-size: clamp(2rem, 7vw, 3.6rem);
+    text-transform: uppercase;
+    color: #fff;
+    background:
+        linear-gradient(180deg, rgba(13, 2, 33, 0.25), rgba(13, 2, 33, 0) 40%),
+        var(--cenario) center 62% / cover no-repeat;
+    border-bottom: 3px solid var(--ciano);
+    box-shadow: 0 6px 24px rgba(25, 230, 255, 0.45);
+    text-shadow:
+        0 0 6px #fff,
+        0 0 14px var(--magenta),
+        0 0 32px var(--magenta),
+        3px 3px 0 var(--rosa);
+}
 
-        input[type="number"],
-        input[type="text"] {
-            width: 100%;
-            padding: 10px 12px;
-            font: inherit;
-            color: var(--tinta);
-            background: #fff;
-            border: 1px solid var(--linha);
-            border-radius: 8px;
-        }
+/* ---------- Layout ---------- */
+.layout {
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 28px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    align-items: start;
+}
 
-        input:focus-visible,
-        button:focus-visible {
-            outline: 3px solid var(--seda);
-            outline-offset: 1px;
-        }
+.aba-esquerda {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+    position: sticky;
+    top: 16px;
+}
 
-        button {
-            font: inherit;
-            font-weight: 700;
-            padding: 10px 16px;
-            border: 0;
-            border-radius: 8px;
-            background: var(--grama);
-            color: #fff;
-            cursor: pointer;
-        }
+/* ---------- Painéis: vidro escuro com borda ciano e sombra magenta ---------- */
+.bloco {
+    position: relative;
+    padding: 28px 18px 18px;
+    background: linear-gradient(160deg, rgba(43, 10, 82, 0.92), rgba(26, 6, 56, 0.96));
+    border: 2px solid var(--ciano);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra-dura), 0 0 18px rgba(25, 230, 255, 0.25);
+}
 
-        button:hover {
-            background: var(--grama-escura);
-        }
+/* Etiqueta do título: pôr do sol (contrasta com o painel frio) */
+.bloco h2 {
+    position: absolute;
+    top: -15px;
+    left: 14px;
+    margin: 0;
+    padding: 5px 14px;
+    font-size: 0.95rem;
+    color: var(--noite);
+    background: linear-gradient(90deg, var(--sol), var(--laranja) 55%, var(--rosa));
+    border-radius: 3px;
+    box-shadow: 0 0 14px rgba(255, 138, 61, 0.6);
+    transform: skewX(-12deg);
+}
 
-        button.largo {
-            width: 100%;
-        }
+/* ---------- Campos ---------- */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+}
 
-        button.destaque {
-            background: var(--seda);
-            color: var(--tinta);
-        }
+.campos-lado-a-lado {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
 
-        button.destaque:hover {
-            background: #cf9b15;
-        }
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px 12px;
+    font: inherit;
+    font-weight: 400;
+    color: var(--ciano);
+    caret-color: var(--magenta);
+    background: var(--noite);
+    border: 1px solid rgba(25, 230, 255, 0.5);
+    border-radius: 4px;
+    box-shadow: inset 0 0 10px rgba(25, 230, 255, 0.12);
+    transition: box-shadow 0.15s, border-color 0.15s;
+}
 
-        #erro-config {
-            min-height: 1.2em;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-            color: var(--erro);
-        }
+input::placeholder {
+    color: #6d5a8f;
+}
 
-        /* ---------- Cadastro de nomes + contador ---------- */
-        .linha-cadastro {
-            display: flex;
-            gap: 8px;
-        }
+input:focus-visible {
+    outline: none;
+    border-color: var(--magenta);
+    box-shadow: 0 0 0 2px var(--magenta), 0 0 16px rgba(255, 47, 214, 0.6);
+}
 
-        .linha-cadastro button {
-            flex-shrink: 0;
-        }
+#erro-config {
+    min-height: 1.2em;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--erro);
+    text-shadow: 0 0 8px rgba(255, 107, 107, 0.6);
+}
 
-        .contador {
-            display: flex;
-            justify-content: space-between;
-            margin: 14px 0 6px;
-            font-size: 0.9rem;
-        }
+/* ---------- Botões: neon ---------- */
+button {
+    position: relative;
+    overflow: hidden;
+    font: inherit;
+    font-family: var(--fonte-titulo);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 11px 18px;
+    color: #fff;
+    background: linear-gradient(180deg, #7a1fd1, #4a0a8f);
+    border: 2px solid var(--magenta);
+    border-radius: 4px;
+    box-shadow: var(--brilho-magenta);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: transform 0.12s, box-shadow 0.15s, background 0.15s;
+}
 
-        .contador strong {
-            font-size: 1.1rem;
-        }
+button:hover {
+    background: linear-gradient(180deg, #9a35f0, #5f12b5);
+    box-shadow: 0 0 24px rgba(255, 47, 214, 0.9);
+    transform: translateY(-1px);
+}
 
-        progress {
-            width: 100%;
-            height: 10px;
-            border: 0;
-            border-radius: 99px;
-            overflow: hidden;
-            background: var(--linha);
-            accent-color: var(--grama);
-        }
+button:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 6px rgba(255, 47, 214, 0.6);
+}
 
-        progress::-webkit-progress-bar {
-            background: var(--linha);
-        }
+button:focus-visible {
+    outline: 3px solid var(--ciano);
+    outline-offset: 2px;
+}
 
-        progress::-webkit-progress-value {
-            background: var(--grama);
-        }
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+}
 
-        progress::-moz-progress-bar {
-            background: var(--grama);
-        }
+button.largo {
+    width: 100%;
+}
 
-        /* ---------- Lista de competidores ---------- */
-        #lista-competidores {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            max-height: 260px;
-            overflow-y: auto;
-        }
+/* Botão principal: sol */
+button.destaque {
+    color: var(--noite);
+    text-shadow: none;
+    background: linear-gradient(180deg, var(--sol), var(--laranja) 60%, var(--rosa));
+    border-color: var(--sol);
+    box-shadow: 0 0 16px rgba(255, 138, 61, 0.7);
+    animation: pulsar 1.8s ease-in-out infinite;
+}
 
-        #lista-competidores li {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 10px;
-            background: var(--fundo);
-            border-radius: 8px;
-        }
+button.destaque:hover {
+    background: linear-gradient(180deg, #ffe680, #ff9b57 60%, #ff4f9e);
+}
 
-        .numero {
-            display: grid;
-            place-items: center;
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: var(--seda);
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
+/* ---------- Cadastro de nomes ---------- */
+.linha-cadastro {
+    display: flex;
+    gap: 8px;
+}
 
-        .vazio {
-            color: var(--tinta-suave);
-            font-size: 0.9rem;
-        }
+.linha-cadastro button {
+    flex-shrink: 0;
+}
 
-        /* ---------- Área principal (direita) ---------- */
-        .principal {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
+.contador {
+    display: flex;
+    justify-content: space-between;
+    margin: 14px 0 8px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--texto-suave);
+}
 
-        .principal h2 {
-            margin-bottom: 14px;
-        }
+.contador strong {
+    font-family: var(--fonte-titulo);
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: var(--ciano);
+    text-shadow: 0 0 10px var(--ciano);
+}
 
-        #pista {
-            background: var(--grama);
-            border-radius: var(--raio);
-            padding: 10px 0;
-            overflow: hidden;
-        }
+progress {
+    appearance: none;
+    -webkit-appearance: none;
+    display: block;
+    width: 100%;
+    height: 14px;
+    border: 1px solid var(--ciano);
+    border-radius: 99px;
+    overflow: hidden;
+    background: var(--noite);
+    box-shadow: 0 0 10px rgba(25, 230, 255, 0.3);
+}
 
-        .raia {
-            position: relative;
-            height: 52px;
-            margin: 0 0 4px;
-            border-top: 2px dashed rgba(255, 255, 255, 0.35);
-            /* linha de chegada */
-            background: linear-gradient(to left, rgba(255, 255, 255, 0.9) 0 6px, transparent 6px);
-        }
+progress::-webkit-progress-bar {
+    background: var(--noite);
+}
 
-        .raia:first-child {
-            border-top: 0;
-        }
+progress::-webkit-progress-value {
+    background: repeating-linear-gradient(-45deg, var(--magenta) 0 10px, var(--rosa) 10px 20px);
+    background-size: 28px 28px;
+    animation: listras 0.8s linear infinite;
+    box-shadow: 0 0 12px var(--magenta);
+    transition: width 0.3s;
+}
 
-        .cavalo {
-            position: absolute;
-            top: 6px;
-            left: var(--pos, 0%);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 1.6rem;
-            color: #fff;
-            white-space: nowrap;
-        }
+progress::-moz-progress-bar {
+    background: repeating-linear-gradient(-45deg, var(--magenta) 0 10px, var(--rosa) 10px 20px);
+}
 
-        .cavalo span {
-            font-size: 0.85rem;
-            font-weight: 700;
-        }
+/* ---------- Lista de competidores ---------- */
+#lista-competidores {
+    list-style: none;
+    margin: 0;
+    padding: 4px 6px 4px 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 260px;
+    overflow-y: auto;
+    scrollbar-color: var(--magenta) var(--noite);
+}
 
-        #log-corrida {
-            margin-top: 12px;
-            min-height: 90px;
-            padding: 12px 14px;
-            background: var(--papel);
-            border: 1px solid var(--linha);
-            border-radius: var(--raio);
-            font-size: 0.9rem;
-            color: var(--tinta-suave);
-        }
+#lista-competidores li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    font-weight: 700;
+    color: var(--texto);
+    background: rgba(13, 2, 33, 0.7);
+    border-left: 4px solid var(--ciano);
+    border-radius: 4px;
+    box-shadow: inset 0 0 12px rgba(25, 230, 255, 0.1);
+    animation: deslizar 0.35s ease-out both;
+}
 
-        #btn-proxima-volta {
-            margin-top: 12px;
-        }
+.numero {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    font-family: var(--fonte-titulo);
+    font-size: 0.85rem;
+    color: var(--noite);
+    background: linear-gradient(180deg, var(--sol), var(--laranja));
+    border-radius: 4px;
+    transform: skewX(-10deg);
+    box-shadow: 0 0 10px rgba(255, 138, 61, 0.6);
+}
 
-        /* ---------- Pódio ---------- */
-        #resultado-podio {
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 16px;
-            padding: 16px;
-            background: var(--papel);
-            border: 1px solid var(--linha);
-            border-radius: var(--raio);
-        }
+.vazio {
+    padding: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--texto-suave);
+    border: 1px dashed rgba(25, 230, 255, 0.4);
+    border-radius: 6px;
+}
 
-        .degrau {
-            width: 120px;
-            padding: 10px 6px;
-            text-align: center;
-            font-weight: 700;
-            background: var(--linha);
-            border-radius: 8px 8px 0 0;
-        }
+/* ---------- Área principal ---------- */
+.principal {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
 
-        .degrau.ouro {
-            height: 130px;
-            background: var(--seda);
-        }
+.principal h2 {
+    margin-bottom: 14px;
+    font-size: 1.4rem;
+    color: #fff;
+    text-shadow: 0 0 8px var(--ciano), 0 0 22px var(--ciano);
+}
 
-        .degrau.prata {
-            height: 100px;
-        }
+/* ---------- PISTA: pôr do sol com grade em movimento ---------- */
+#pista {
+    position: relative;
+    padding: 12px 0;
+    overflow: hidden;
+    border: 2px solid var(--magenta);
+    border-radius: var(--raio);
+    box-shadow: 0 0 22px rgba(255, 47, 214, 0.55), 5px 5px 0 var(--ciano);
+    background:
+        linear-gradient(180deg, #4a0a6e 0%, #8d1a8f 55%, #c2189a 100%);
+}
 
-        .degrau.bronze {
-            height: 76px;
-        }
+/* Grade vertical que desliza, dando sensação de velocidade */
+#pista::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(90deg,
+            rgba(25, 230, 255, 0.22) 0 2px,
+            transparent 2px 70px);
+    animation: grade 1.2s linear infinite;
+    mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 20%, #000 80%, transparent);
+}
 
-        /* ---------- Celular ---------- */
-        @media (max-width: 860px) {
-            .layout {
-                grid-template-columns: 1fr;
-                padding: 16px;
-            }
+.raia {
+    position: relative;
+    z-index: 1;
+    height: 56px;
+    margin: 0 0 4px;
+    border-top: 2px solid rgba(25, 230, 255, 0.55);
+    box-shadow: 0 -1px 10px rgba(25, 230, 255, 0.35);
+    /* Linha de chegada quadriculada */
+    background: conic-gradient(var(--noite) 25%, #fff 0 50%, var(--noite) 0 75%, #fff 0) right top / 16px 16px no-repeat;
+    background-size: 16px 100%;
+}
 
-            .aba-esquerda {
-                position: static;
-            }
-        }
+.raia:first-child {
+    border-top: 0;
+    box-shadow: none;
+}
+
+.cavalo {
+    position: absolute;
+    top: 6px;
+    left: var(--pos, 0%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.7rem;
+    color: #fff;
+    white-space: nowrap;
+    transition: left 0.9s cubic-bezier(0.2, 0.85, 0.3, 1.1);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.55));
+    animation: galope 0.5s ease-in-out infinite alternate;
+}
+
+/* Rastro de luz neon */
+.cavalo::before {
+    content: "";
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    width: 70px;
+    height: 6px;
+    margin-right: 4px;
+    transform: translateY(-50%);
+    background: linear-gradient(270deg, var(--ciano), transparent);
+    box-shadow: 0 0 12px var(--ciano);
+    border-radius: 99px;
+    animation: rastro 0.35s ease-in-out infinite alternate;
+}
+
+.cavalo span {
+    font-family: var(--fonte-titulo);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    color: var(--noite);
+    background: linear-gradient(90deg, var(--sol), var(--laranja));
+    border-radius: 3px;
+    transform: skewX(-12deg);
+    box-shadow: 0 0 10px rgba(255, 138, 61, 0.7);
+}
+
+/* ---------- Log: terminal retrô ---------- */
+#log-corrida {
+    position: relative;
+    margin-top: 16px;
+    min-height: 90px;
+    padding: 14px 16px;
+    font-family: "Courier New", Consolas, monospace;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #6dffb0;
+    text-shadow: 0 0 6px rgba(109, 255, 176, 0.7);
+    background:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.04) 0 1px, transparent 1px 3px),
+        #07010f;
+    border: 2px solid var(--ciano);
+    border-radius: var(--raio);
+    box-shadow: 5px 5px 0 var(--magenta);
+    overflow-y: auto;
+}
+
+#btn-proxima-volta {
+    margin-top: 16px;
+}
+
+/* ---------- PÓDIO: cena SVG ao fundo ---------- */
+#etapa-podio {
+    position: relative;
+}
+
+#resultado-podio {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding: 70px 16px 0;
+    min-height: 300px;
+    overflow: hidden;
+    border: 2px solid var(--magenta);
+    border-radius: var(--raio);
+    box-shadow: 0 0 26px rgba(255, 47, 214, 0.6), 5px 5px 0 var(--ciano);
+    background: var(--cenario) center bottom / cover no-repeat, var(--noite);
+}
+
+.degrau {
+    width: 120px;
+    padding: 12px 6px;
+    text-align: center;
+    font-family: var(--fonte-titulo);
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+    color: var(--noite);
+    border: 2px solid #fff;
+    border-bottom: 0;
+    border-radius: 6px 6px 0 0;
+    animation: subir 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+}
+
+.degrau.ouro {
+    height: 150px;
+    background: linear-gradient(180deg, var(--sol), var(--laranja));
+    box-shadow: 0 0 28px rgba(255, 216, 74, 0.85);
+    animation-delay: 0.3s;
+}
+
+.degrau.prata {
+    height: 114px;
+    background: linear-gradient(180deg, #e9f7ff, #8fb4d9);
+    box-shadow: 0 0 20px rgba(25, 230, 255, 0.7);
+    animation-delay: 0.15s;
+}
+
+.degrau.bronze {
+    height: 84px;
+    background: linear-gradient(180deg, #ff9bd0, var(--rosa));
+    box-shadow: 0 0 20px rgba(255, 42, 138, 0.75);
+}
+
+/* ---------- Animações ---------- */
+@keyframes pulsar {
+    0%, 100% { box-shadow: 0 0 16px rgba(255, 138, 61, 0.7); }
+    50% { box-shadow: 0 0 30px rgba(255, 216, 74, 1); }
+}
+
+@keyframes deslizar {
+    from { opacity: 0; transform: translateX(-16px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes listras {
+    to { background-position: 28px 0; }
+}
+
+@keyframes grade {
+    to { background-position: -70px 0; }
+}
+
+@keyframes galope {
+    from { transform: translateY(0) rotate(-1deg); }
+    to { transform: translateY(-3px) rotate(1.5deg); }
+}
+
+@keyframes rastro {
+    from { opacity: 0.4; width: 44px; }
+    to { opacity: 1; width: 78px; }
+}
+
+@keyframes subir {
+    from { opacity: 0; transform: translateY(70px); }
+    to { opacity: 1; transform: none; }
+}
+
+/* ---------- Opcional: esconder o bloco duplicado do HTML ---------- */
+/* .Aba.Esquerda { display: none; } */
+
+/* ---------- Celular ---------- */
+@media (max-width: 860px) {
+    .layout {
+        grid-template-columns: 1fr;
+        padding: 24px 16px;
+    }
+
+    .aba-esquerda {
+        position: static;
+    }
+
+    .degrau {
+        width: 96px;
+    }
+}
+
+/* ---------- Menos movimento ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition-duration: 0.01ms !important;
+    }
+}
