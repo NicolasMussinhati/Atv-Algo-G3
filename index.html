@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-               
+
             </section>
 
             <!-- ETAPA 4: PÓDIO -->
@@ -114,9 +114,9 @@
             alert('Insira valores numericos')
         } else if (cavalos < 2 || cavalos > 6) {
             alert("Insira valores entre 2 e 6")
-        } else if (corrida > 1 || corrida < 0){
-                alert('Registre uma corrida por vez!')
-        }else {
+        } else if (corrida > 1 || corrida < 0) {
+            alert('Registre uma corrida por vez!')
+        } else {
             corrida++
             qtd_volta = voltas
             qtd_cavalo = cavalos
@@ -125,18 +125,44 @@
             qtd_cadastrados.innerHTML = lista_cavalos.length;
             qtd_faltam.innerHTML = qtd_cavalo - lista_cavalos.length;
         }
+        primeiro = ''
+        segundo = ''
+        terceiro = ''
+        tempo_primeiro = 9999999999999999
+        tempo_segundo = 99999999999999999
+        tempo_terceiro = 9999999999999999
+
+
+        for (i = 0; i < lista_cavalos.length; i++) {
+            if (lista_cavalos[i].tempo < tempo_primeiro) {
+                tempo_terceiro = tempo_segundo;
+                terceiro = segundo;
+                tempo_segundo = tempo_primeiro
+                segundo = primeiro
+                tempo_primeiro = lista_cavalos[i].tempo
+                primeiro = lista_cavalos[i].nome
+            } else if (lista_cavalos[i].tempo < tempo_segundo) {
+                tempo_terceiro = tempo_segundo
+                terceiro = segundo
+                tempo_segundo = lista_cavalos[i].tempo
+                segundo = lista_cavalos[i].nome
+            } else if (lista_cavalos[i].tempo < tempo_terceiro) {
+                tempo_terceiro = lista_cavalos[i].tempo
+                terceiro = lista_cavalos[i].nome
+            }
+        }
     }
 
     function nomearCavalo() {
         let cavalo = nome_cavalo.value;
-        
-        
+
+
         if (cavalo == '') {
             alert('Insira um nome válido')
         }
-        else if (lista_cavalos.length >= qtd_cavalo){
+        else if (lista_cavalos.length >= qtd_cavalo) {
             alert('Todos os cavalos já cadastrados')
-        }else {
+        } else {
             lista_cavalos.push({
                 nome: cavalo,
                 tempo: 0
@@ -148,9 +174,9 @@
             qtd_cadastrados.innerHTML = lista_cavalos.length;
             qtd_faltam.innerHTML = qtd_cavalo - lista_cavalos.length;
 
-            
+
             for (let i = 0; i < lista_cavalos.length; i++) {
-                lista_competidores.innerHTML += `<li><span class="numero">${i+1}</span> ${lista_cavalos[i].nome} </li>`
+                lista_competidores.innerHTML += `<li><span class="numero">${i + 1}</span> ${lista_cavalos[i].nome} </li>`
             }
         }
     }
