@@ -1,47 +1,145 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Turfe Amigo</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turfe Amigo</title>
 </head>
+
 <body>
 
-  <h1>🐎 Turfe Amigo 🐎</h1>
+    <h1> Turfe Amigo </h1>
 
-  <!-- ETAPA 1: CONFIGURAÇÃO -->
-  <div id="etapa-config">
-    <h2>1. Configuração do Turfe</h2>
-    <input type="number" id="qtd-cavalos" min="2" max="6" placeholder="Quantidade de Cavalos (2 a 6)" />
-    <input type="number" id="qtd-voltas" min="1" max="50" placeholder="Quantidade de Voltas" />
-    <div id="erro-config"></div>
-    <button type="button">Definir Nomes dos Cavalos</button>
-  </div>
+<div class="layout">
 
-  <!-- ETAPA 2: NOMES DOS CAVALOS -->
-  <div id="etapa-nomes">
-    <h2>2. Nomes dos Participantes</h2>
-    <div id="lista-inputs-nomes">
-      <input type="text" id="nome-cavalo-1" placeholder="Nome do Cavalo 1" />
-      <input type="text" id="nome-cavalo-2" placeholder="Nome do Cavalo 2" />
+        <!-- ================= ABA ESQUERDA ================= -->
+        <aside class="aba-esquerda">
+
+            <!-- ETAPA 1: CONFIGURAÇÃO -->
+            <section class="bloco" id="etapa-config">
+                <h2>1. Configuração do Turfe</h2>
+
+                <div class="campos-lado-a-lado">
+                    <label class="campo">
+                        Cavalos (2 a 6)
+                        <input type="number" id="qtd-cavalos" min="2" max="6" placeholder="Ex.: 4" />
+                    </label>
+                    <label class="campo">
+                        Voltas (1 a 50)
+                        <input type="number" id="qtd-voltas" min="1" max="50" placeholder="Ex.: 10" />
+                    </label>
+                </div>
+
+                <div id="erro-config"></div>
+                <button type="button" class="largo">Definir Nomes dos Cavalos</button>
+            </section>
+
+            <!-- ETAPA 2: NOMES DOS CAVALOS -->
+            <section class="bloco" id="etapa-nomes">
+                <h2>2. Nomes dos Participantes</h2>
+
+                <div class="linha-cadastro" id="lista-inputs-nomes">
+                    <input type="text" id="nome-cavalo" placeholder="Nome do cavalo" />
+                    <button type="button">Adicionar</button>
+                </div>
+
+                <!-- Contador: o JS vai preencher estes dois números depois -->
+                <div class="contador">
+                    <span><strong id="qtd-cadastrados">2</strong> cadastrados</span>
+                    <span><strong id="qtd-faltam">2</strong> faltam</span>
+                </div>
+                <progress id="progresso-cadastro" value="2" max="4"></progress>
+            </section>
+
+            <!-- LISTA DE COMPETIDORES CADASTRADOS -->
+            <section class="bloco" id="etapa-lista">
+                <h2>Competidores cadastrados</h2>
+
+                <ul id="lista-competidores">
+                    <!-- Exemplos de itens: apague quando ligar o JavaScript -->
+                    <li><span class="numero">1</span> Trovão</li>
+                    <li><span class="numero">2</span> Relâmpago</li>
+                </ul>
+                <!-- Mostrar quando a lista estiver vazia -->
+                <p class="vazio" hidden>Nenhum cavalo cadastrado ainda.</p>
+
+                <button type="button" class="largo destaque" style="margin-top:14px">Iniciar Corrida!</button>
+            </section>
+
+        </aside>
+
+        <!-- ================= ÁREA PRINCIPAL ================= -->
+        <main class="principal">
+
+            <!-- ETAPA 3: CORRIDA -->
+            <section id="etapa-corrida">
+                <h2>3. Corrida em Andamento (<span id="info-voltas">0</span> voltas)</h2>
+
+                <div id="pista">
+                    <!-- Exemplos de raias: o JS cria estas depois (--pos vai de 0% a 90%) -->
+                    <div class="raia">
+                        <div class="cavalo" style="--pos: 40%">🏇 <span>Trovão</span></div>
+                    </div>
+                    <div class="raia">
+                        <div class="cavalo" style="--pos: 25%">🏇 <span>Relâmpago</span></div>
+                    </div>
+                </div>
+
+                <button type="button" id="btn-proxima-volta">Dar Próxima Volta</button>
+                <div id="log-corrida">O que acontecer na corrida aparece aqui.</div>
+            </section>
+
+            <!-- ETAPA 4: PÓDIO -->
+            <section id="etapa-podio">
+                <h2>🏆 Extrato Final - Pódio 🏆</h2>
+
+                <div id="resultado-podio">
+                    <div class="degrau prata">🥈<br>2º lugar</div>
+                    <div class="degrau ouro">🥇<br>1º lugar</div>
+                    <div class="degrau bronze">🥉<br>3º lugar</div>
+                </div>
+
+                <button type="button">Novo Turfe</button>
+            </section>
+
+        </main>
     </div>
-    <button type="button">Iniciar Corrida!</button>
-  </div>
 
-  <!-- ETAPA 3: CORRIDA -->
-  <div id="etapa-corrida">
-    <h2>3. Corrida em Andamento (<span id="info-voltas">0</span> voltas)</h2>
-    <div id="pista"></div>
-    <button type="button" id="btn-proxima-volta">Dar Próxima Volta</button>
-    <div id="log-corrida"></div>
-  </div>
 
-  <!-- ETAPA 4: PÓDIO -->
-  <div id="etapa-podio">
-    <h2>🏆 Extrato Final - Pódio 🏆</h2>
-    <div id="resultado-podio"></div>
-    <button type="button">Novo Turfe</button>
-  </div>
+    <!-- ETAPA 1: CONFIGURAÇÃO -->
+    <div class="Aba Esquerda">
+    <div id="etapa-config">
+        <h2>1. Configuração do Turfe</h2>
+        quantidade de cavalos: <input type="number" id="qtd-cavalos" min="2" max="6" placeholder="Quantidade de Cavalos (2 a 6)" /> <br>
+        quantidade de voltas:<input type="number" id="qtd-voltas" min="1" max="50" placeholder="Quantidade de Voltas" />
+        <div id="erro-config"></div>
+        <button type="button">Definir Nomes dos Cavalos</button>
+    </div>
+
+    <!-- ETAPA 2: NOMES DOS CAVALOS -->
+    
+        <h2>2. Nomes dos Participantes</h2>
+        <div id="lista-inputs-nomes">
+            <input type="text" id="nome-cavalo-1" placeholder="Nome do Cavalo 1" />
+            <input type="text" id="nome-cavalo-2" placeholder="Nome do Cavalo 2" />
+        </div>
+        <button type="button">Iniciar Corrida!</button>
+
+
+        <!-- ETAPA 3: CORRIDA -->
+        <h2>3. Corrida em Andamento (<span id="info-voltas">0</span> voltas)</h2>
+        <div id="pista"></div>
+        <button type="button" id="btn-proxima-volta">Dar Próxima Volta</button>
+        <div id="log-corrida"></div>
+
+
+        <!-- ETAPA 4: PÓDIO -->
+        <h2>🏆 Extrato Final - Pódio 🏆</h2>
+        <div id="resultado-podio"></div>
+        <button type="button">Novo Turfe</button>
+    </div>
 
 </body>
+
 </html>
