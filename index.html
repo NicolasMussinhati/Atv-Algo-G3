@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Turfe Amigo</title>
+    <link rel="stylesheet" href="css.css">
 </head>
 
 <body>
@@ -22,17 +23,17 @@
 
                 <div class="campos-lado-a-lado">
                     <label class="campo">
-                        Cavalos (2 a 6)
-                        <input type="number" id="qtd-cavalos" min="2" max="6" placeholder="Ex.: 4" />
+                        Competidores
+                        <input type="number" id="qtd_cavalos" min="2" placeholder="Ex.: 4" />
                     </label>
                     <label class="campo">
-                        Voltas (1 a 50)
-                        <input type="number" id="qtd-voltas" min="1" max="50" placeholder="Ex.: 10" />
+                        Voltas
+                        <input type="number" id="qtd_voltas" min="1" placeholder="Ex.: 10" />
                     </label>
                 </div>
 
                 <div id="erro-config"></div>
-                <button type="button" class="largo">Definir Nomes dos Cavalos</button>
+                <button type="button" class="largo" onclick="registrarCorrida()">Registrar Corrida</button>
             </section>
 
             <!-- ETAPA 2: NOMES DOS CAVALOS -->
@@ -79,10 +80,10 @@
                 <div id="pista">
                     <!-- Exemplos de raias: o JS cria estas depois (--pos vai de 0% a 90%) -->
                     <div class="raia">
-                        <div class="cavalo" style="--pos: 40%">🏇 <span>Trovão</span></div>
+                        <div class="cavalo" style="--pos: 40%"> <span>Trovão</span></div>
                     </div>
                     <div class="raia">
-                        <div class="cavalo" style="--pos: 25%">🏇 <span>Relâmpago</span></div>
+                        <div class="cavalo" style="--pos: 25%"> <span>Relâmpago</span></div>
                     </div>
                 </div>
 
@@ -92,12 +93,12 @@
 
             <!-- ETAPA 4: PÓDIO -->
             <section id="etapa-podio">
-                <h2>🏆 Extrato Final - Pódio 🏆</h2>
+                <h2> Extrato Final - Pódio </h2>
 
                 <div id="resultado-podio">
-                    <div class="degrau prata">🥈<br>2º lugar</div>
-                    <div class="degrau ouro">🥇<br>1º lugar</div>
-                    <div class="degrau bronze">🥉<br>3º lugar</div>
+                    <div class="degrau prata"><br>2º lugar</div>
+                    <div class="degrau ouro"><br>1º lugar</div>
+                    <div class="degrau bronze"><br>3º lugar</div>
                 </div>
 
                 <button type="button">Novo Turfe</button>
@@ -105,41 +106,17 @@
 
         </main>
     </div>
-
-
-    <!-- ETAPA 1: CONFIGURAÇÃO -->
-    <div class="Aba Esquerda">
-    <div id="etapa-config">
-        <h2>1. Configuração do Turfe</h2>
-        quantidade de cavalos: <input type="number" id="qtd-cavalos" min="2" max="6" placeholder="Quantidade de Cavalos (2 a 6)" /> <br>
-        quantidade de voltas:<input type="number" id="qtd-voltas" min="1" max="50" placeholder="Quantidade de Voltas" />
-        <div id="erro-config"></div>
-        <button type="button">Definir Nomes dos Cavalos</button>
-    </div>
-
-    <!-- ETAPA 2: NOMES DOS CAVALOS -->
-    
-        <h2>2. Nomes dos Participantes</h2>
-        <div id="lista-inputs-nomes">
-            <input type="text" id="nome-cavalo-1" placeholder="Nome do Cavalo 1" />
-            <input type="text" id="nome-cavalo-2" placeholder="Nome do Cavalo 2" />
-        </div>
-        <button type="button">Iniciar Corrida!</button>
-
-
-        <!-- ETAPA 3: CORRIDA -->
-        <h2>3. Corrida em Andamento (<span id="info-voltas">0</span> voltas)</h2>
-        <div id="pista"></div>
-        <button type="button" id="btn-proxima-volta">Dar Próxima Volta</button>
-        <div id="log-corrida"></div>
-
-
-        <!-- ETAPA 4: PÓDIO -->
-        <h2>🏆 Extrato Final - Pódio 🏆</h2>
-        <div id="resultado-podio"></div>
-        <button type="button">Novo Turfe</button>
-    </div>
-
 </body>
-
+<script>
+    let lista_cavalos = []
+    function registrarCorrida(params) {
+        let voltas = qtd_voltas.value
+        let cavalos = qtd_cavalos.value
+        if (cavalos == '' || voltas == '') {
+            alert('Insira valores numericos')
+        } else if (cavalos < 2 && cavalos > 6) {
+            alert("Insira valores entre 2 e 6")
+        }
+    }
+</script>
 </html>
