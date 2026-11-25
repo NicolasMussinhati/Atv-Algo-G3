@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Turfe Amigo</title>
+</head>
+<body>
+
+  <h1>🐎 Turfe Amigo 🐎</h1>
+
+  <!-- ETAPA 1: CONFIGURAÇÃO -->
+  <div id="etapa-config">
+    <h2>1. Configuração do Turfe</h2>
+    <input type="number" id="qtd-cavalos" min="2" max="6" placeholder="Quantidade de Cavalos (2 a 6)" />
+    <input type="number" id="qtd-voltas" min="1" max="50" placeholder="Quantidade de Voltas" />
+    <div id="erro-config"></div>
+    <button type="button">Definir Nomes dos Cavalos</button>
+  </div>
+
+  <!-- ETAPA 2: NOMES DOS CAVALOS -->
+  <div id="etapa-nomes">
+    <h2>2. Nomes dos Participantes</h2>
+    <div id="lista-inputs-nomes">
+      <input type="text" id="nome-cavalo-1" placeholder="Nome do Cavalo 1" />
+      <input type="text" id="nome-cavalo-2" placeholder="Nome do Cavalo 2" />
+    </div>
+    <button type="button">Iniciar Corrida!</button>
+  </div>
+
+  <!-- ETAPA 3: CORRIDA -->
+  <div id="etapa-corrida">
+    <h2>3. Corrida em Andamento (<span id="info-voltas">0</span> voltas)</h2>
+    <div id="pista"></div>
+    <button type="button" id="btn-proxima-volta">Dar Próxima Volta</button>
+    <div id="log-corrida"></div>
+  </div>
+
+  <!-- ETAPA 4: PÓDIO -->
+  <div id="etapa-podio">
+    <h2>🏆 Extrato Final - Pódio 🏆</h2>
+    <div id="resultado-podio"></div>
+    <button type="button">Novo Turfe</button>
+  </div>
+
+</body>
+</html>
