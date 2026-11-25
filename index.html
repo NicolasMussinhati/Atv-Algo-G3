@@ -12,7 +12,7 @@
 
     <h1> Turfe Amigo </h1>
 
-<div class="layout">
+    <div class="layout">
 
         <!-- ================= ABA ESQUERDA ================= -->
         <aside class="aba-esquerda">
@@ -41,8 +41,8 @@
                 <h2>2. Nomes dos Participantes</h2>
 
                 <div class="linha-cadastro" id="lista-inputs-nomes">
-                    <input type="text" id="nome-cavalo" placeholder="Nome do cavalo" />
-                    <button type="button">Adicionar</button>
+                    <input type="text" id="nome_cavalo" placeholder="Nome do cavalo" />
+                    <button type="button" onclick="nomearCavalo()">Adicionar</button>
                 </div>
 
                 <!-- Contador: o JS vai preencher estes dois números depois -->
@@ -109,14 +109,37 @@
 </body>
 <script>
     let lista_cavalos = []
-    function registrarCorrida(params) {
+    let qtd_voltas = 0
+    let qtd_cavalos = 0
+    function registrarCorrida() {
         let voltas = qtd_voltas.value
         let cavalos = qtd_cavalos.value
         if (cavalos == '' || voltas == '') {
             alert('Insira valores numericos')
-        } else if (cavalos < 2 && cavalos > 6) {
+        } else if (cavalos < 2 || cavalos > 6) {
             alert("Insira valores entre 2 e 6")
+        } else {
+            qtd_voltas = voltas
+            qtd_cavalos = cavalos
+        }
+    }
+
+    function nomearCavalo() {
+        let cavalo = nome_cavalo.value;
+
+        if (cavalo == '') {
+            alert('Insira um nome válido')
+        } else {
+            lista_cavalos.push({
+                nome: cavalo,
+            })
+
+            for (let i = 0; i < lista_cavalos.length; i++) {
+                const element = array[i];
+                
+            }
         }
     }
 </script>
+
 </html>
